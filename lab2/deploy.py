@@ -16,8 +16,8 @@ except getopt.error as err:
 
 import boto3
 
-PROJECT = "Labcloudformation2"
-BUCKET_NAME = f'{PROJECT}--bucketdia2'
+PROJECT = "aws2"
+BUCKET_NAME = f"{PROJECT}-laboratoriocloudformationbucketejemplodia2"
 
 cf = boto3.client('cloudformation')
 
