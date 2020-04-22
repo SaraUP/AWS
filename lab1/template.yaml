@@ -1,9 +1,18 @@
 AWSTemplateFormatVersion : '2010-09-09'
 
+Parameters:
+  BucketName: 
+    Type: String
+    
 Description: my template
 Resources:
     MyBucket:
         Type: AWS::S3::Bucket
-        DeletionPolicy: Retain
         Properties:
-            BucketName: laboratoriocloudformationbucketejemplo3
+            BucketName: !Ref BucketName
+
+
+
+Outputs:
+  OuputValue1:
+    Value: !Ref MyBucket
