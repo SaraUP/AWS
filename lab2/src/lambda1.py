@@ -1,3 +1,5 @@
+import os
 
 def handler(event, context):
-    return "lambda1"
+    USER = os.getenv('MY_NAME')
+    return USER
