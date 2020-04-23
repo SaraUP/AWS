@@ -46,11 +46,21 @@ if [[ $i -eq 1 ]]; then
 fi
 
 if [[ $b -eq 1 ]]; then
+aws cloudformation package \
+  --template-file template.yaml \
+  --s3-bucket $DEPLOYMENTS_BUCKET \
+  --output-template-file $CF_FILE
   echo build
 fi
 
 if [[ $d -eq 1 ]]; then
-    echo deploy
+
+aws cloudformation deploy \
+  --no-fail-on-empty-changeset \
+  --template-file $CF_FILE \
+  --stack-name "aws3" \
+  --capabilities CAPABILITY_NAMED_IAM
+  echo deploy
 fi
 
 if [[ $r -eq 1 ]]; then
