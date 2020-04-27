@@ -1,17 +1,17 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform:
   - AWS::Serverless-2016-10-31
-  
+
 Parameters:
   Project: 
     Type: String
-    
+
 Description: my template
 Resources:
   MyLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: rpp-ip-cluster-lambda-role
+      RoleName: my-lambda-role3
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -33,7 +33,7 @@ Resources:
             - logs:CreateLogStream
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
-            
+
   MyAPI:
     Type: AWS::Serverless::Api
     Properties:
@@ -44,20 +44,20 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: swagger.yaml
-            
-  MyLambda1:
+
+  GetUserLambda:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: lambda1CloudFormationLab2
+      FunctionName: get-user-lambda
       Runtime: python3.6
       CodeUri: ./build
       Handler: lambda1.handler
       Timeout: 30
-      MemorySize: 200
+      MemorySize: 500
       Role: !GetAtt MyLambdaRole.Arn
       Environment:
-        Variables:
-          My_NAME: sara
+         Variables:
+          MY_NAME : mauri
       Events:
         GetUsers:
           Type: Api
@@ -65,11 +65,11 @@ Resources:
             RestApiId: !Ref MyAPI
             Path: /users
             Method: GET
-    
+  
   MyLambda2:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Join [ "-", [!Ref Project, "CloudFormationLabdia3"] ]
+      FunctionName: !Join [ "-", [!Ref Project, "lambda-1" ] ]  
       Runtime: python3.6
       CodeUri: ./build
       Handler: lambda2.handler

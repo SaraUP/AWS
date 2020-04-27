@@ -42,25 +42,25 @@ esac
 if [[ $i -eq 1 ]]; then
   mkdir -p build
   cp -r src/* build/
-  echo install
 fi
 
 if [[ $b -eq 1 ]]; then
+  
 aws cloudformation package \
   --template-file template.yaml \
   --s3-bucket $DEPLOYMENTS_BUCKET \
   --output-template-file $CF_FILE
-  echo build
+
 fi
 
 if [[ $d -eq 1 ]]; then
+    
 aws cloudformation deploy \
   --no-fail-on-empty-changeset \
   --template-file $CF_FILE \
-  --parameter-overrides Project=lab2 \
-  --stack-name "aws3" \
+  --parameter-overrides Project=lab3  \
+  --stack-name "aws4" \
   --capabilities CAPABILITY_NAMED_IAM
-  echo deploy
 fi
 
 if [[ $r -eq 1 ]]; then
