@@ -57,7 +57,7 @@ Resources:
       Role: !GetAtt MyLambdaRole.Arn
       Environment:
          Variables:
-          MY_NAME : mauri
+          MY_NAME : sara
       Events:
         GetUsers:
           Type: Api
@@ -66,14 +66,37 @@ Resources:
             Path: /users
             Method: GET
   
-  MyLambda2:
+  GetUserLambda2:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Join [ "-", [!Ref Project, "lambda-1" ] ]  
+      FunctionName: get-user-lambda2
       Runtime: python3.6
       CodeUri: ./build
       Handler: lambda2.handler
       Role: !GetAtt MyLambdaRole.Arn
+      Events:
+        GetUsers2:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyAPI
+            Path: /users/{user_name}
+            Method: GET
+  
+  PostLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: post-lambda
+      Runtime: python3.6
+      CodeUri: ./build
+      Handler: lambda3.handler
+      Role: !GetAtt MyLambdaRole.Arn
+      Events:
+        PostUsers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyAPI
+            Path: /users/{user_name}
+            Method: POST
 
 Outputs:
   RoleARN:
