@@ -74,13 +74,6 @@ Resources:
       CodeUri: ./build
       Handler: lambda2.handler
       Role: !GetAtt MyLambdaRole.Arn
-      #Events:
-        #GetUsers:
-          #Type: Api
-          #Properties:
-            #RestApiId: !Ref MyAPI
-            #Path: /users
-            #Method: GET
 
 Outputs:
   RoleARN:
